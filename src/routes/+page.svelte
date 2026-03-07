@@ -1,6 +1,8 @@
 <script lang="ts">
 	import type { Trace, Step } from '$lib/types';
 	import { decomposeStep, narrateStep, buildCFLayers, computeAccumulatedPhi, matMul, IDENTITY } from '$lib/mobius';
+	import { descriptions } from '$lib/descriptions';
+	import AdelicDiagram from '$lib/AdelicDiagram.svelte';
 	import bb3 from '$lib/traces/bb3_trace.json';
 	import unaryAdd from '$lib/traces/unary_add_trace.json';
 	import unaryParity from '$lib/traces/unary_parity_trace.json';
@@ -23,20 +25,52 @@
 	let totalSteps = $derived(trace.trace.length);
 	let step = $derived(currentStep < totalSteps ? trace.trace[currentStep] : null);
 	let blank = $derived(trace.machine.blankSymbol);
+	let desc = $derived(descriptions[selectedMachine]);
 
 	// Sub-step decomposition
 	let subSteps = $derived(step ? decomposeStep(step, blank) : []);
 	let narration = $derived(step ? narrateStep(step, blank) : 
 		(trace.result.status === 'HALT' ? 'Computation complete — machine halted.' : trace.result.status));
 
-	// CF layers for display
+	// CF layers
 	let cfLayersLeft = $derived(buildCFLayers(step ? step.preLeft : trace.result.finalLeft, blank));
 	let cfLayersRight = $derived(buildCFLayers(step ? step.preRight : trace.result.finalRight, blank));
 
-	// Accumulated Φ matrices and chains
+	// Accumulated Φ
 	let accumulated = $derived(computeAccumulatedPhi(trace.trace, currentStep, blank));
 
-	// Build tape from left/right stacks
+	// Adelic diagram phase
+	let adelicPhase = $derived.by((): 'idle' | 'selector' | 'matrix-right' | 'matrix-left' | 'halted' => {
+		if (currentStep >= totalSteps) return 'halted';
+		if (!step) return 'idle';
+		// Cycle through phases based on animation timing
+		// For now, show the primary operation
+		if (step.move === 'R') return 'matrix-right';
+		return 'matrix-left';
+	});
+
+	// Compute prime modulus for the selector display
+	let primeModulus = $derived.by(() => {
+		const d = trace.machine.alphabetSize;
+		const q = trace.machine.states.length;
+		const n = d * q;
+		// Find smallest prime >= n
+		for (let p = n; ; p++) {
+			if (isPrime(p)) return p;
+		}
+	});
+
+	function isPrime(n: number): boolean {
+		if (n < 2) return false;
+		if (n < 4) return true;
+		if (n % 2 === 0 || n % 3 === 0) return false;
+		for (let d = 5; d * d <= n; d += 6) {
+			if (n % d === 0 || n % (d + 2) === 0) return false;
+		}
+		return true;
+	}
+
+	// Build tape
 	function buildTape(left: number[], right: number[], blankSym: number): { cells: number[], headPos: number } {
 		const leftReversed = [...left].reverse();
 		const padding = 5;
@@ -76,7 +110,6 @@
 	let cfLeft = $derived(step ? step.cf.preLeft : null);
 	let cfRight = $derived(step ? step.cf.preRight : null);
 
-	// Transition text
 	let transitionText = $derived.by(() => {
 		if (!step) return trace.result.status === 'HALT' ? '⏹ HALTED' : trace.result.status;
 		return `(${step.preState}, ${step.readSymbol}) → write ${step.writeSymbol}, move ${step.move === 'R' ? 'Right' : 'Left'}, → ${step.postState}`;
@@ -112,7 +145,22 @@
 		</div>
 	</div>
 
-	<!-- Controls (moved to top for easier access) -->
+	<!-- Machine Description -->
+	{#if desc}
+		<div class="bg-gray-900/60 rounded-lg border border-gray-800 p-3">
+			<div class="flex items-start gap-3">
+				<span class="text-lg">📋</span>
+				<div class="text-sm space-y-1">
+					<div class="font-semibold text-gray-200">{desc.title}</div>
+					<div class="text-gray-400">{desc.summary}</div>
+					<div class="text-xs text-gray-500"><span class="text-gray-400 font-medium">Tape:</span> {desc.tapeFormat}</div>
+					<div class="text-xs text-gray-500"><span class="text-amber-400/80 font-medium">Watch for:</span> {desc.watchFor}</div>
+				</div>
+			</div>
+		</div>
+	{/if}
+
+	<!-- Controls -->
 	<div class="bg-gray-900/50 rounded-lg border border-gray-800 p-2.5">
 		<div class="flex items-center justify-center gap-2 flex-wrap">
 			<button onclick={reset}
@@ -132,6 +180,15 @@
 			</div>
 		</div>
 	</div>
+
+	<!-- ADELIC OVERVIEW DIAGRAM -->
+	<AdelicDiagram 
+		phase={adelicPhase}
+		state={currentState}
+		readSymbol={step?.readSymbol ?? blank}
+		move={step?.move ?? ''}
+		prime={primeModulus}
+	/>
 
 	<!-- CLASSICAL VIEW -->
 	<div class="bg-gray-900 rounded-lg border border-gray-800 p-4">
@@ -205,17 +262,13 @@
 			<h2 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">③ Matrix Decomposition</h2>
 			<div class="space-y-2">
 				{#each subSteps as sub, i}
-					<div class="flex items-center gap-3 p-2 rounded bg-gray-800/50 transition-all duration-300"
-						 class:border-l-2={true}
-						 class:border-indigo-500={sub.target === 'right'}
-						 class:border-emerald-500={sub.target === 'left'}>
+					<div class="flex items-center gap-3 p-2 rounded bg-gray-800/50 transition-all duration-300
+						{sub.target === 'right' ? 'border-l-2 border-indigo-500' : 'border-l-2 border-emerald-500'}">
 						<span class="text-xs text-gray-500 w-4">{i+1}.</span>
 						<div class="flex items-center gap-2">
-							<!-- Matrix name badge -->
 							<span class="font-mono text-sm font-bold {sub.target === 'right' ? 'text-indigo-400' : 'text-emerald-400'}">
 								{sub.matrixName}
 							</span>
-							<!-- Matrix -->
 							<span class="font-mono text-xs text-gray-400">
 								[{sub.matrix[0].join(', ')}; {sub.matrix[1].join(', ')}]
 							</span>
@@ -233,7 +286,7 @@
 		</div>
 	{/if}
 
-	<!-- MÖBIUS VIEW: Stacks + CFs -->
+	<!-- CF STACKS -->
 	<div class="bg-gray-900 rounded-lg border border-gray-800 p-4">
 		<h2 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">④ Continued Fraction Stacks</h2>
 
@@ -246,7 +299,6 @@
 						<span class="text-xs text-gray-500">= <span class="text-emerald-400 font-mono">{cfLeft}</span></span>
 					{/if}
 				</div>
-				<!-- Stack display -->
 				<div class="font-mono text-sm bg-gray-800/50 rounded px-3 py-2">
 					{#if preLeft.length === 0}
 						<span class="text-gray-600">∅ (empty)</span>
@@ -254,7 +306,6 @@
 						<span class="text-emerald-300">[{preLeft.join(', ')}]</span>
 					{/if}
 				</div>
-				<!-- CF notation -->
 				{#if cfLayersLeft.length > 0}
 					<div class="font-mono text-xs text-gray-400 pl-1">
 						{#each cfLayersLeft as layer, i}
@@ -309,7 +360,6 @@
 			</div>
 		</div>
 
-		<!-- CF value change indicators -->
 		{#if step}
 			<div class="mt-3 grid grid-cols-2 gap-4 text-xs">
 				<div class="text-gray-500">
@@ -325,13 +375,12 @@
 	<!-- SHEAR EXPANSION -->
 	<div class="bg-gray-900 rounded-lg border border-gray-800 p-4">
 		<h2 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">⑤ Shear Expansion (Φ)</h2>
-		<p class="text-xs text-gray-500 mb-3">The entire computation as a product of matrices. Each step adds factors.</p>
+		<p class="text-xs text-gray-500 mb-3">The entire computation as a product of matrices. Each step adds factors to the chain.</p>
 
 		<div class="grid grid-cols-2 gap-4">
 			<!-- Phi_R -->
 			<div>
 				<div class="text-xs text-indigo-400 font-semibold mb-1">Φ<sub>R</sub> (right stack)</div>
-				<!-- Chain -->
 				{#if accumulated.chainR.length > 0}
 					<div class="font-mono text-[11px] text-gray-500 mb-2 break-all leading-relaxed">
 						{accumulated.chainR.join(' · ')}
@@ -339,7 +388,6 @@
 				{:else}
 					<div class="text-xs text-gray-600 italic mb-2">I (identity)</div>
 				{/if}
-				<!-- Result matrix -->
 				<div class="inline-flex items-center gap-1 font-mono text-sm">
 					<span class="text-gray-600 text-xl" style="font-family: serif">[</span>
 					<div class="flex flex-col items-center gap-0">
@@ -383,7 +431,6 @@
 			</div>
 		</div>
 
-		<!-- Final values when halted -->
 		{#if currentStep >= totalSteps && trace.shear.phiR && trace.shear.phiL}
 			<div class="mt-3 p-2 bg-amber-900/10 border border-amber-800/30 rounded text-xs text-amber-300">
 				✓ Computation complete. The entire {totalSteps}-step computation is encoded in these two matrices.
@@ -393,6 +440,6 @@
 
 	<!-- Footer -->
 	<div class="text-center text-[10px] text-gray-600 pb-4">
-		Möbius-Shear framework · {trace.result.steps} steps · {trace.result.status}
+		Möbius-Shear framework · {trace.result.steps} steps · {trace.result.status} · 𝔽<sub>{primeModulus}</sub> selector
 	</div>
 </div>
