@@ -55,3 +55,13 @@ export interface Step {
 	};
 	selectorMode: string;
 }
+
+// Derived sub-step for the decomposition view
+export interface SubStep {
+	label: string;           // e.g. "Pop 1 from right"
+	matrixName: string;      // e.g. "Q₁"
+	matrix: number[][];      // the 2x2 matrix
+	target: 'left' | 'right';
+	operation: 'push' | 'pop';
+	symbol: number;          // internal symbol k
+}

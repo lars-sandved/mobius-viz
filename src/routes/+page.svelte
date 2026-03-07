@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Trace, Step } from '$lib/types';
+	import { decomposeStep, narrateStep, buildCFLayers, computeAccumulatedPhi, matMul, IDENTITY } from '$lib/mobius';
 	import bb3 from '$lib/traces/bb3_trace.json';
 	import unaryAdd from '$lib/traces/unary_add_trace.json';
 	import unaryParity from '$lib/traces/unary_parity_trace.json';
@@ -15,133 +16,86 @@
 	let selectedMachine = $state('BB(3) — Busy Beaver 3');
 	let currentStep = $state(0);
 	let playing = $state(false);
-	let speed = $state(500); // ms per step
+	let speed = $state(700);
 	let playInterval: ReturnType<typeof setInterval> | null = null;
 
 	let trace = $derived(machines[selectedMachine]);
 	let totalSteps = $derived(trace.trace.length);
 	let step = $derived(currentStep < totalSteps ? trace.trace[currentStep] : null);
+	let blank = $derived(trace.machine.blankSymbol);
 
-	// Accumulated Phi matrices
-	let phiL = $derived.by(() => {
-		let m = [[1,0],[0,1]]; // identity
-		for (let i = 0; i <= currentStep && i < totalSteps; i++) {
-			const s = trace.trace[i];
-			// For right moves: push on left. For left moves: pop from left.
-			// We accumulate step matrices on the left side
-		}
-		// Just show the final shear values at current step progress
-		return null; // Will compute properly
-	});
+	// Sub-step decomposition
+	let subSteps = $derived(step ? decomposeStep(step, blank) : []);
+	let narration = $derived(step ? narrateStep(step, blank) : 
+		(trace.result.status === 'HALT' ? 'Computation complete — machine halted.' : trace.result.status));
 
-	function matMul(a: number[][], b: number[][]): number[][] {
-		return [
-			[a[0][0]*b[0][0] + a[0][1]*b[1][0], a[0][0]*b[0][1] + a[0][1]*b[1][1]],
-			[a[1][0]*b[0][0] + a[1][1]*b[1][0], a[1][0]*b[0][1] + a[1][1]*b[1][1]],
-		];
-	}
+	// CF layers for display
+	let cfLayersLeft = $derived(buildCFLayers(step ? step.preLeft : trace.result.finalLeft, blank));
+	let cfLayersRight = $derived(buildCFLayers(step ? step.preRight : trace.result.finalRight, blank));
+
+	// Accumulated Φ matrices and chains
+	let accumulated = $derived(computeAccumulatedPhi(trace.trace, currentStep, blank));
 
 	// Build tape from left/right stacks
-	function buildTape(left: number[], right: number[], blank: number): { cells: number[], headPos: number } {
-		// Left stack: top is nearest to head, stored left-to-right
-		// Right stack: top is at head position
+	function buildTape(left: number[], right: number[], blankSym: number): { cells: number[], headPos: number } {
 		const leftReversed = [...left].reverse();
-		const padding = 6;
-		const blanks = Array(padding).fill(blank);
+		const padding = 5;
+		const blanks = Array(padding).fill(blankSym);
 		const cells = [...blanks, ...leftReversed, ...right, ...blanks];
 		const headPos = padding + leftReversed.length;
 		return { cells, headPos };
 	}
 
-	function prev() {
-		if (currentStep > 0) currentStep--;
-	}
-
-	function next() {
-		if (currentStep < totalSteps) currentStep++;
-	}
+	function prev() { if (currentStep > 0) currentStep--; }
+	function next() { if (currentStep < totalSteps) currentStep++; }
 
 	function togglePlay() {
-		if (playing) {
-			stopPlay();
-		} else {
+		if (playing) { stopPlay(); }
+		else {
 			playing = true;
 			playInterval = setInterval(() => {
-				if (currentStep >= totalSteps) {
-					stopPlay();
-				} else {
-					currentStep++;
-				}
+				if (currentStep >= totalSteps) stopPlay();
+				else currentStep++;
 			}, speed);
 		}
 	}
 
 	function stopPlay() {
 		playing = false;
-		if (playInterval) {
-			clearInterval(playInterval);
-			playInterval = null;
-		}
+		if (playInterval) { clearInterval(playInterval); playInterval = null; }
 	}
 
-	function reset() {
-		stopPlay();
-		currentStep = 0;
-	}
+	function reset() { stopPlay(); currentStep = 0; }
+	function onMachineChange() { stopPlay(); currentStep = 0; }
 
-	function onMachineChange() {
-		stopPlay();
-		currentStep = 0;
-	}
-
-	// Derive tape state for display
+	// Tape state
 	let preLeft = $derived(step ? step.preLeft : trace.result.finalLeft);
 	let preRight = $derived(step ? step.preRight : trace.result.finalRight);
-	let tapeData = $derived(buildTape(preLeft, preRight, trace.machine.blankSymbol));
-
-	// Current state
+	let tapeData = $derived(buildTape(preLeft, preRight, blank));
 	let currentState = $derived(step ? step.preState : trace.result.finalState);
-
-	// CF values
 	let cfLeft = $derived(step ? step.cf.preLeft : null);
 	let cfRight = $derived(step ? step.cf.preRight : null);
 
-	// Transition info
+	// Transition text
 	let transitionText = $derived.by(() => {
-		if (!step) return trace.result.status === 'HALT' ? 'HALTED' : trace.result.status;
-		const t = step;
-		return `(${t.preState}, ${t.readSymbol}) → write ${t.writeSymbol}, move ${t.move}, → ${t.postState}`;
-	});
-
-	// Step matrix display
-	let stepMatrix = $derived(step ? step.matrix : null);
-	let shearInfo = $derived(step ? `${step.shearFactor.kind === 'push' ? 'P' : 'Q'}_${step.shearFactor.k}` : null);
-
-	// Accumulated product up to current step
-	let accPhiR = $derived.by(() => {
-		let m = [[1,0],[0,1]];
-		for (let i = 0; i < currentStep && i < totalSteps; i++) {
-			const s = trace.trace[i];
-			if (s.move === 'R') {
-				// Q_a on R (pop read), then accumulate
-				const qa: number[][] = [[0,1],[1,-s.shearFactor.k]];
-				m = matMul(m, qa);
-			}
-		}
-		return m;
+		if (!step) return trace.result.status === 'HALT' ? '⏹ HALTED' : trace.result.status;
+		return `(${step.preState}, ${step.readSymbol}) → write ${step.writeSymbol}, move ${step.move === 'R' ? 'Right' : 'Left'}, → ${step.postState}`;
 	});
 </script>
 
 <svelte:head>
-	<title>Möbius Computer</title>
+	<title>Möbius Computer Visualizer</title>
 </svelte:head>
 
-<div class="max-w-4xl mx-auto px-4 py-6 space-y-5">
+<div class="max-w-5xl mx-auto px-4 py-6 space-y-4">
 	<!-- Header -->
-	<div class="flex items-center justify-between">
-		<h1 class="text-2xl font-bold tracking-tight">
-			<span class="text-indigo-400">Möbius</span> Computer
-		</h1>
+	<div class="flex items-center justify-between flex-wrap gap-2">
+		<div>
+			<h1 class="text-2xl font-bold tracking-tight">
+				<span class="text-indigo-400">Möbius</span> Computer
+			</h1>
+			<p class="text-xs text-gray-500 mt-0.5">Turing machines as products of GL(2,ℤ) matrices on continued fractions</p>
+		</div>
 		<div class="flex items-center gap-3">
 			<select
 				class="bg-gray-800 border border-gray-700 rounded px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-indigo-500"
@@ -153,15 +107,36 @@
 				{/each}
 			</select>
 			<span class="text-sm text-gray-400 font-mono">
-				Step {currentStep}/{totalSteps}
+				{currentStep}/{totalSteps}
 			</span>
 		</div>
 	</div>
 
-	<!-- Classical Tape View -->
+	<!-- Controls (moved to top for easier access) -->
+	<div class="bg-gray-900/50 rounded-lg border border-gray-800 p-2.5">
+		<div class="flex items-center justify-center gap-2 flex-wrap">
+			<button onclick={reset}
+				class="px-3 py-1.5 bg-gray-800 hover:bg-gray-700 rounded text-sm transition-colors">⏮</button>
+			<button onclick={prev} disabled={currentStep === 0}
+				class="px-3 py-1.5 bg-gray-800 hover:bg-gray-700 rounded text-sm transition-colors disabled:opacity-30">◀</button>
+			<button onclick={togglePlay}
+				class="px-5 py-1.5 rounded text-sm font-medium transition-colors
+					{playing ? 'bg-red-600 hover:bg-red-500' : 'bg-indigo-600 hover:bg-indigo-500'}"
+			>{playing ? '⏸ Pause' : '▶ Play'}</button>
+			<button onclick={next} disabled={currentStep >= totalSteps}
+				class="px-3 py-1.5 bg-gray-800 hover:bg-gray-700 rounded text-sm transition-colors disabled:opacity-30">▶</button>
+			<div class="flex items-center gap-2 ml-2">
+				<span class="text-xs text-gray-500">Speed:</span>
+				<input type="range" min="100" max="2000" step="100" bind:value={speed}
+					class="w-20 accent-indigo-500" />
+			</div>
+		</div>
+	</div>
+
+	<!-- CLASSICAL VIEW -->
 	<div class="bg-gray-900 rounded-lg border border-gray-800 p-4">
 		<div class="flex items-center justify-between mb-3">
-			<h2 class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Classical View</h2>
+			<h2 class="text-xs font-semibold text-gray-500 uppercase tracking-wider">① Classical Tape</h2>
 			<div class="flex items-center gap-2">
 				<span class="text-xs text-gray-500">State:</span>
 				<span class="font-mono text-lg font-bold text-amber-400">{currentState}</span>
@@ -172,167 +147,252 @@
 		<div class="flex justify-center items-center gap-0.5 overflow-x-auto py-2">
 			{#each tapeData.cells as cell, i}
 				<div
-					class="w-10 h-10 flex items-center justify-center font-mono text-lg border transition-all duration-300
+					class="w-9 h-9 flex items-center justify-center font-mono text-base border transition-all duration-300
 						{i === tapeData.headPos
 							? 'bg-indigo-600 border-indigo-400 text-white font-bold scale-110 rounded'
-							: cell === trace.machine.blankSymbol
-								? 'bg-gray-800/50 border-gray-700/50 text-gray-600 rounded'
+							: cell === blank
+								? 'bg-gray-800/30 border-gray-700/30 text-gray-600 rounded'
 								: 'bg-gray-800 border-gray-700 text-gray-200 rounded'}"
-				>
-					{cell}
-				</div>
+				>{cell}</div>
 			{/each}
 		</div>
-
-		<!-- Head indicator -->
-		<div class="text-center mt-1">
-			<span class="text-indigo-400 text-xs">▲ head</span>
-		</div>
+		<div class="text-center mt-0.5"><span class="text-indigo-400 text-[10px]">▲ head</span></div>
 
 		<!-- Transition -->
-		<div class="text-center mt-2 font-mono text-sm text-gray-300">
-			{transitionText}
+		<div class="text-center mt-2 font-mono text-sm text-gray-300">{transitionText}</div>
+
+		<!-- Transition Table -->
+		{#if step}
+			<div class="mt-3 overflow-x-auto">
+				<table class="mx-auto text-xs font-mono">
+					<thead>
+						<tr class="text-gray-500">
+							<th class="px-2 py-0.5">State</th>
+							<th class="px-2 py-0.5">Read</th>
+							<th class="px-2 py-0.5">Write</th>
+							<th class="px-2 py-0.5">Move</th>
+							<th class="px-2 py-0.5">Next</th>
+						</tr>
+					</thead>
+					<tbody>
+						{#each trace.machine.transitions as t}
+							<tr class="{t.state === step.preState && t.read === step.readSymbol 
+								? 'bg-indigo-600/20 text-indigo-300' : 'text-gray-500'}">
+								<td class="px-2 py-0.5">{t.state}</td>
+								<td class="px-2 py-0.5">{t.read}</td>
+								<td class="px-2 py-0.5">{t.write}</td>
+								<td class="px-2 py-0.5">{t.move}</td>
+								<td class="px-2 py-0.5">{t.nextState}</td>
+							</tr>
+						{/each}
+					</tbody>
+				</table>
+			</div>
+		{/if}
+	</div>
+
+	<!-- NARRATION -->
+	<div class="bg-gray-900 rounded-lg border border-gray-800 p-4">
+		<h2 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">② What's Happening</h2>
+		<div class="text-sm text-gray-300 whitespace-pre-line leading-relaxed font-mono">
+			{narration}
 		</div>
 	</div>
 
-	<!-- Möbius View -->
+	<!-- SUB-STEP DECOMPOSITION -->
+	{#if subSteps.length > 0}
+		<div class="bg-gray-900 rounded-lg border border-gray-800 p-4">
+			<h2 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">③ Matrix Decomposition</h2>
+			<div class="space-y-2">
+				{#each subSteps as sub, i}
+					<div class="flex items-center gap-3 p-2 rounded bg-gray-800/50 transition-all duration-300"
+						 class:border-l-2={true}
+						 class:border-indigo-500={sub.target === 'right'}
+						 class:border-emerald-500={sub.target === 'left'}>
+						<span class="text-xs text-gray-500 w-4">{i+1}.</span>
+						<div class="flex items-center gap-2">
+							<!-- Matrix name badge -->
+							<span class="font-mono text-sm font-bold {sub.target === 'right' ? 'text-indigo-400' : 'text-emerald-400'}">
+								{sub.matrixName}
+							</span>
+							<!-- Matrix -->
+							<span class="font-mono text-xs text-gray-400">
+								[{sub.matrix[0].join(', ')}; {sub.matrix[1].join(', ')}]
+							</span>
+						</div>
+						<span class="text-xs text-gray-400 ml-auto">
+							{sub.operation === 'push' ? '⬆' : '⬇'}
+							{sub.label}
+						</span>
+						<span class="text-[10px] px-1.5 py-0.5 rounded {sub.target === 'right' ? 'bg-indigo-900/50 text-indigo-400' : 'bg-emerald-900/50 text-emerald-400'}">
+							{sub.target === 'right' ? 'R' : 'L'}
+						</span>
+					</div>
+				{/each}
+			</div>
+		</div>
+	{/if}
+
+	<!-- MÖBIUS VIEW: Stacks + CFs -->
 	<div class="bg-gray-900 rounded-lg border border-gray-800 p-4">
-		<h2 class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">Möbius View</h2>
+		<h2 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">④ Continued Fraction Stacks</h2>
 
 		<div class="grid grid-cols-2 gap-4">
 			<!-- Left Stack -->
 			<div class="space-y-2">
-				<div class="text-xs text-gray-500">Left Stack</div>
-				<div class="font-mono text-sm bg-gray-800/50 rounded px-3 py-2">
-					[{preLeft.join(', ') || '∅'}]
+				<div class="flex items-center gap-2">
+					<span class="text-xs font-semibold text-emerald-400">Left Stack</span>
+					{#if cfLeft}
+						<span class="text-xs text-gray-500">= <span class="text-emerald-400 font-mono">{cfLeft}</span></span>
+					{/if}
 				</div>
-				{#if cfLeft}
-					<div class="text-xs text-gray-500">CF value: <span class="text-emerald-400 font-mono">{cfLeft}</span></div>
+				<!-- Stack display -->
+				<div class="font-mono text-sm bg-gray-800/50 rounded px-3 py-2">
+					{#if preLeft.length === 0}
+						<span class="text-gray-600">∅ (empty)</span>
+					{:else}
+						<span class="text-emerald-300">[{preLeft.join(', ')}]</span>
+					{/if}
+				</div>
+				<!-- CF notation -->
+				{#if cfLayersLeft.length > 0}
+					<div class="font-mono text-xs text-gray-400 pl-1">
+						{#each cfLayersLeft as layer, i}
+							<span style="margin-left: {layer.depth * 12}px" class="block">
+								{#if i === 0}
+									{layer.value} + 1/( …
+								{:else if layer.isLast}
+									{layer.value} + 1/(1 + 1/(1 + …))
+								{:else}
+									{layer.value} + 1/(
+								{/if}
+							</span>
+						{/each}
+					</div>
+				{:else}
+					<div class="text-xs text-gray-600 italic">blank → φ (golden ratio)</div>
 				{/if}
 			</div>
 
 			<!-- Right Stack -->
 			<div class="space-y-2">
-				<div class="text-xs text-gray-500">Right Stack</div>
-				<div class="font-mono text-sm bg-gray-800/50 rounded px-3 py-2">
-					[{preRight.join(', ') || '∅'}]
+				<div class="flex items-center gap-2">
+					<span class="text-xs font-semibold text-indigo-400">Right Stack</span>
+					{#if cfRight}
+						<span class="text-xs text-gray-500">= <span class="text-indigo-400 font-mono">{cfRight}</span></span>
+					{/if}
 				</div>
-				{#if cfRight}
-					<div class="text-xs text-gray-500">CF value: <span class="text-emerald-400 font-mono">{cfRight}</span></div>
+				<div class="font-mono text-sm bg-gray-800/50 rounded px-3 py-2">
+					{#if preRight.length === 0}
+						<span class="text-gray-600">∅ (empty)</span>
+					{:else}
+						<span class="text-indigo-300">[{preRight.join(', ')}]</span>
+					{/if}
+				</div>
+				{#if cfLayersRight.length > 0}
+					<div class="font-mono text-xs text-gray-400 pl-1">
+						{#each cfLayersRight as layer, i}
+							<span style="margin-left: {layer.depth * 12}px" class="block">
+								{#if i === 0}
+									{layer.value} + 1/( …
+								{:else if layer.isLast}
+									{layer.value} + 1/(1 + 1/(1 + …))
+								{:else}
+									{layer.value} + 1/(
+								{/if}
+							</span>
+						{/each}
+					</div>
+				{:else}
+					<div class="text-xs text-gray-600 italic">blank → φ (golden ratio)</div>
 				{/if}
 			</div>
 		</div>
 
-		<!-- Step Matrix -->
-		{#if stepMatrix && shearInfo}
-			<div class="mt-4 flex items-center gap-6">
-				<div>
-					<div class="text-xs text-gray-500 mb-1">Step matrix: <span class="text-indigo-400">{shearInfo}</span></div>
-					<div class="font-mono text-sm inline-flex items-center gap-1">
-						<span class="text-gray-500 text-2xl leading-none" style="font-family: serif">⌈</span>
-						<div class="flex flex-col items-end gap-0.5">
-							<span>{stepMatrix[0][0]}<span class="text-gray-600 mx-2">{stepMatrix[0][1]}</span></span>
-							<span>{stepMatrix[1][0]}<span class="text-gray-600 mx-2">{stepMatrix[1][1]}</span></span>
-						</div>
-						<span class="text-gray-500 text-2xl leading-none" style="font-family: serif">⌉</span>
-					</div>
+		<!-- CF value change indicators -->
+		{#if step}
+			<div class="mt-3 grid grid-cols-2 gap-4 text-xs">
+				<div class="text-gray-500">
+					{step.cf.preLeft} → <span class="text-emerald-400">{step.cf.postLeft}</span>
 				</div>
-
-				<!-- Final Shear -->
-				{#if currentStep === totalSteps && trace.shear.phiR}
-					<div>
-						<div class="text-xs text-gray-500 mb-1">Φ<sub>R</sub> (final)</div>
-						<div class="font-mono text-sm inline-flex items-center gap-1">
-							<span class="text-gray-500 text-2xl leading-none" style="font-family: serif">⌈</span>
-							<div class="flex flex-col items-end gap-0.5">
-								<span>{trace.shear.phiR[0][0]}<span class="text-gray-600 mx-2">{trace.shear.phiR[0][1]}</span></span>
-								<span>{trace.shear.phiR[1][0]}<span class="text-gray-600 mx-2">{trace.shear.phiR[1][1]}</span></span>
-							</div>
-							<span class="text-gray-500 text-2xl leading-none" style="font-family: serif">⌉</span>
-						</div>
-					</div>
-				{/if}
-
-				{#if currentStep === totalSteps && trace.shear.phiL}
-					<div>
-						<div class="text-xs text-gray-500 mb-1">Φ<sub>L</sub> (final)</div>
-						<div class="font-mono text-sm inline-flex items-center gap-1">
-							<span class="text-gray-500 text-2xl leading-none" style="font-family: serif">⌈</span>
-							<div class="flex flex-col items-end gap-0.5">
-								<span>{trace.shear.phiL[0][0]}<span class="text-gray-600 mx-2">{trace.shear.phiL[0][1]}</span></span>
-								<span>{trace.shear.phiL[1][0]}<span class="text-gray-600 mx-2">{trace.shear.phiL[1][1]}</span></span>
-							</div>
-							<span class="text-gray-500 text-2xl leading-none" style="font-family: serif">⌉</span>
-						</div>
-					</div>
-				{/if}
+				<div class="text-gray-500">
+					{step.cf.preRight} → <span class="text-indigo-400">{step.cf.postRight}</span>
+				</div>
 			</div>
 		{/if}
 	</div>
 
-	<!-- Emet Badge -->
-	<div class="bg-gray-900 rounded-lg border border-gray-800 p-3">
-		<div class="flex items-center justify-between">
-			<div class="flex items-center gap-4 text-sm">
-				<span class="text-gray-500">Emet:</span>
-				<span class={trace.emet.aleph ? 'text-emerald-400' : 'text-red-400'}>
-					ℵ {trace.emet.aleph ? '✓' : '✗'}
-				</span>
-				<span class={trace.emet.mem ? 'text-emerald-400' : 'text-red-400'}>
-					Mem {trace.emet.mem ? '✓' : '✗'}
-				</span>
-				<span class={trace.emet.tav ? 'text-emerald-400' : 'text-red-400'}>
-					Tav {trace.emet.tav ? '✓' : '✗'}
-				</span>
+	<!-- SHEAR EXPANSION -->
+	<div class="bg-gray-900 rounded-lg border border-gray-800 p-4">
+		<h2 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">⑤ Shear Expansion (Φ)</h2>
+		<p class="text-xs text-gray-500 mb-3">The entire computation as a product of matrices. Each step adds factors.</p>
+
+		<div class="grid grid-cols-2 gap-4">
+			<!-- Phi_R -->
+			<div>
+				<div class="text-xs text-indigo-400 font-semibold mb-1">Φ<sub>R</sub> (right stack)</div>
+				<!-- Chain -->
+				{#if accumulated.chainR.length > 0}
+					<div class="font-mono text-[11px] text-gray-500 mb-2 break-all leading-relaxed">
+						{accumulated.chainR.join(' · ')}
+					</div>
+				{:else}
+					<div class="text-xs text-gray-600 italic mb-2">I (identity)</div>
+				{/if}
+				<!-- Result matrix -->
+				<div class="inline-flex items-center gap-1 font-mono text-sm">
+					<span class="text-gray-600 text-xl" style="font-family: serif">[</span>
+					<div class="flex flex-col items-center gap-0">
+						<div>
+							<span class="w-10 inline-block text-right text-indigo-300">{accumulated.phiR[0][0]}</span>
+							<span class="w-10 inline-block text-right text-indigo-300/60">{accumulated.phiR[0][1]}</span>
+						</div>
+						<div>
+							<span class="w-10 inline-block text-right text-indigo-300">{accumulated.phiR[1][0]}</span>
+							<span class="w-10 inline-block text-right text-indigo-300/60">{accumulated.phiR[1][1]}</span>
+						</div>
+					</div>
+					<span class="text-gray-600 text-xl" style="font-family: serif">]</span>
+				</div>
 			</div>
-			{#if trace.emet.isEmet}
-				<span class="text-xl font-bold text-amber-400" title="Emet — Truth">אמת</span>
-			{/if}
+
+			<!-- Phi_L -->
+			<div>
+				<div class="text-xs text-emerald-400 font-semibold mb-1">Φ<sub>L</sub> (left stack)</div>
+				{#if accumulated.chainL.length > 0}
+					<div class="font-mono text-[11px] text-gray-500 mb-2 break-all leading-relaxed">
+						{accumulated.chainL.join(' · ')}
+					</div>
+				{:else}
+					<div class="text-xs text-gray-600 italic mb-2">I (identity)</div>
+				{/if}
+				<div class="inline-flex items-center gap-1 font-mono text-sm">
+					<span class="text-gray-600 text-xl" style="font-family: serif">[</span>
+					<div class="flex flex-col items-center gap-0">
+						<div>
+							<span class="w-10 inline-block text-right text-emerald-300">{accumulated.phiL[0][0]}</span>
+							<span class="w-10 inline-block text-right text-emerald-300/60">{accumulated.phiL[0][1]}</span>
+						</div>
+						<div>
+							<span class="w-10 inline-block text-right text-emerald-300">{accumulated.phiL[1][0]}</span>
+							<span class="w-10 inline-block text-right text-emerald-300/60">{accumulated.phiL[1][1]}</span>
+						</div>
+					</div>
+					<span class="text-gray-600 text-xl" style="font-family: serif">]</span>
+				</div>
+			</div>
 		</div>
+
+		<!-- Final values when halted -->
+		{#if currentStep >= totalSteps && trace.shear.phiR && trace.shear.phiL}
+			<div class="mt-3 p-2 bg-amber-900/10 border border-amber-800/30 rounded text-xs text-amber-300">
+				✓ Computation complete. The entire {totalSteps}-step computation is encoded in these two matrices.
+			</div>
+		{/if}
 	</div>
 
-	<!-- Controls -->
-	<div class="bg-gray-900 rounded-lg border border-gray-800 p-3">
-		<div class="flex items-center justify-center gap-3">
-			<button
-				onclick={reset}
-				class="px-3 py-1.5 bg-gray-800 hover:bg-gray-700 rounded text-sm transition-colors"
-			>⏮ Reset</button>
-			<button
-				onclick={prev}
-				disabled={currentStep === 0}
-				class="px-3 py-1.5 bg-gray-800 hover:bg-gray-700 rounded text-sm transition-colors disabled:opacity-30"
-			>◀ Prev</button>
-			<button
-				onclick={togglePlay}
-				class="px-4 py-1.5 rounded text-sm font-medium transition-colors
-					{playing ? 'bg-red-600 hover:bg-red-500' : 'bg-indigo-600 hover:bg-indigo-500'}"
-			>{playing ? '⏸ Pause' : '▶ Play'}</button>
-			<button
-				onclick={next}
-				disabled={currentStep >= totalSteps}
-				class="px-3 py-1.5 bg-gray-800 hover:bg-gray-700 rounded text-sm transition-colors disabled:opacity-30"
-			>Next ▶</button>
-
-			<div class="flex items-center gap-2 ml-4">
-				<span class="text-xs text-gray-500">Speed:</span>
-				<input
-					type="range"
-					min="50"
-					max="1500"
-					step="50"
-					bind:value={speed}
-					class="w-24 accent-indigo-500"
-				/>
-				<span class="text-xs text-gray-500 font-mono w-12">{speed}ms</span>
-			</div>
-		</div>
-	</div>
-
-	<!-- Info -->
-	<div class="text-center text-xs text-gray-600">
-		Mode: {step?.selectorMode ?? 'prime'} field selector · 
-		Status: {trace.result.status} · 
-		{trace.result.steps} steps
+	<!-- Footer -->
+	<div class="text-center text-[10px] text-gray-600 pb-4">
+		Möbius-Shear framework · {trace.result.steps} steps · {trace.result.status}
 	</div>
 </div>
