@@ -33,13 +33,11 @@
 		return factors;
 	}
 
-	// CRT residue for a (read, stateIdx) pair
-	function crtResidue(read: number, stateIdx: number, d: number, q: number): number {
-		const N = d * q;
-		for (let u = 0; u < N; u++) {
-			if (u % d === read && u % q === stateIdx) return u;
-		}
-		return 0;
+	// Linear encoding for a (read, stateIdx) pair → unique index in [0, N)
+	// Using u = stateIdx * d + read (not CRT, which fails when gcd(d,q) > 1)
+	// This always gives a unique value, and at prime d the bottom digit = read symbol
+	function encodeTransition(read: number, stateIdx: number, d: number): number {
+		return stateIdx * d + read;
 	}
 
 	// Get the active path digits for a residue u at prime p, depth levels
@@ -53,13 +51,13 @@
 		return digits;
 	}
 
-	// Compute transition map: which transitions land at which residue
-	function transitionMap(d: number, q: number, trans: Transition[], stateNames: string[]): Map<number, Transition> {
+	// Compute transition map: which transitions land at which encoded index
+	function transitionMap(d: number, trans: Transition[], stateNames: string[]): Map<number, Transition> {
 		const map = new Map<number, Transition>();
 		for (const t of trans) {
 			const si = stateNames.indexOf(t.state);
 			if (si >= 0) {
-				const u = crtResidue(t.read, si, d, q);
+				const u = encodeTransition(t.read, si, d);
 				map.set(u, t);
 			}
 		}
@@ -186,8 +184,8 @@
 	// Derived computations
 	let N = $derived(alphabetSize * numStates);
 	let primes = $derived(primeFactors(N));
-	let currentResidue = $derived(crtResidue(readSymbol, stateIndex, alphabetSize, numStates));
-	let tMap = $derived(transitionMap(alphabetSize, numStates, transitions, states));
+	let currentResidue = $derived(encodeTransition(readSymbol, stateIndex, alphabetSize));
+	let tMap = $derived(transitionMap(alphabetSize, transitions, states));
 
 	// Tree dimensions per prime
 	const TREE_WIDTH = 180;
@@ -233,8 +231,11 @@
 <div class="bg-gray-900 rounded-lg border border-gray-800 p-4">
 	<h2 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">⑥ p-adic Structure</h2>
 	<p class="text-[10px] text-gray-600 mb-3">
-		N = {alphabetSize}×{numStates} = {N} = {primes.map(p => p.toString()).join('×')} — each prime gives a different view of the computation.
-		CRT residue u = {currentResidue}.
+		N = {alphabetSize}×{numStates} = {N} = {primes.map(p => {
+			let count = 0; let x = N; while (x % p === 0) { count++; x /= p; }
+			return count > 1 ? `${p}<sup>${count}</sup>` : `${p}`;
+		}).join('×')} — each prime gives a different view of the computation.
+		Transition index u = {stateIndex}×{alphabetSize} + {readSymbol} = {currentResidue}.
 	</p>
 
 	<div class="flex items-start justify-center gap-6 overflow-x-auto">
