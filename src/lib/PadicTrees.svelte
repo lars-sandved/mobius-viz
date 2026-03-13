@@ -192,14 +192,24 @@
 	const TREE_HEIGHT = 160;
 	const NODE_R = 6;
 
+	// Compute minimum depth needed at each prime to distinguish all N transitions
+	function minDepth(p: number, n: number, maxDepth: number): number {
+		let d = 1;
+		let power = p;
+		while (power < n && d < maxDepth) { power *= p; d++; }
+		return d;
+	}
+
 	// Build and layout trees
 	let trees = $derived.by(() => {
 		return primes.map(p => {
-			const digits = activePath(currentResidue, p, depth);
-			const tree = buildTree(p, depth, digits, tMap, N);
-			layoutTree(tree, TREE_WIDTH, TREE_HEIGHT, p, depth);
+			const d = Math.min(minDepth(p, N, 5), depth);
+			const treeWidth = Math.max(TREE_WIDTH, Math.pow(p, d) * 20);
+			const digits = activePath(currentResidue, p, d);
+			const tree = buildTree(p, d, digits, tMap, N);
+			layoutTree(tree, treeWidth, TREE_HEIGHT, p, d);
 			const { nodes, edges } = flattenTree(tree);
-			return { prime: p, digits, tree, nodes, edges, residue: currentResidue % p };
+			return { prime: p, digits, tree, nodes, edges, residue: currentResidue % p, depth: d, width: treeWidth };
 		});
 	});
 
@@ -250,7 +260,7 @@
 				</div>
 
 				<!-- Tree SVG -->
-				<svg width={TREE_WIDTH} height={TREE_HEIGHT} class="overflow-visible">
+				<svg width={t.width} height={TREE_HEIGHT} class="overflow-visible">
 					<!-- Edges -->
 					{#each t.edges as edge}
 						<line
@@ -293,7 +303,7 @@
 							{/if}
 
 							<!-- Transition indicator at leaves -->
-							{#if node.transition && node.level === depth - 1}
+							{#if node.transition && node.level === t.depth - 1}
 								<circle
 									cx={node.x} cy={node.y + NODE_R + 6}
 									r={3}
@@ -312,7 +322,7 @@
 
 					<!-- Active path annotation -->
 					<text
-						x={TREE_WIDTH / 2} y={TREE_HEIGHT + 10}
+						x={t.width / 2} y={TREE_HEIGHT + 10}
 						text-anchor="middle"
 						class="text-[9px] font-mono select-none"
 						fill="#f59e0b"
