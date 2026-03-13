@@ -3,16 +3,23 @@
 	import { decomposeStep, narrateStep, buildCFLayers, computeAccumulatedPhi, matMul, IDENTITY } from '$lib/mobius';
 	import { descriptions } from '$lib/descriptions';
 	import AdelicDiagram from '$lib/AdelicDiagram.svelte';
+	import PadicTrees from '$lib/PadicTrees.svelte';
 	import bb3 from '$lib/traces/bb3_trace.json';
 	import unaryAdd from '$lib/traces/unary_add_trace.json';
 	import unaryParity from '$lib/traces/unary_parity_trace.json';
 	import binaryAdd from '$lib/traces/binary_add_trace.json';
+	import sweeper from '$lib/traces/sweeper_6_2_trace.json';
+	import bouncer from '$lib/traces/bouncer_15_2_trace.json';
+	import rogozhin from '$lib/traces/rogozhin_2_3_trace.json';
 
 	const machines: Record<string, Trace> = {
 		'BB(3) — Busy Beaver 3': bb3 as Trace,
 		'Unary Addition': unaryAdd as Trace,
 		'Unary Parity': unaryParity as Trace,
 		'Binary Addition': binaryAdd as Trace,
+		'Sweeper (6,2)': sweeper as Trace,
+		'Bouncer (15,2)': bouncer as Trace,
+		'Rogozhin (2,3) — Universal TM': rogozhin as Trace,
 	};
 
 	let selectedMachine = $state('BB(3) — Busy Beaver 3');
@@ -437,6 +444,17 @@
 			</div>
 		{/if}
 	</div>
+
+	<!-- P-ADIC TREES -->
+	<PadicTrees
+		alphabetSize={trace.machine.alphabetSize}
+		numStates={trace.machine.states.length}
+		stateIndex={trace.machine.states.indexOf(currentState)}
+		readSymbol={step?.readSymbol ?? blank}
+		transitions={trace.machine.transitions}
+		states={trace.machine.states}
+		depth={3}
+	/>
 
 	<!-- Footer -->
 	<div class="text-center text-[10px] text-gray-600 pb-4">

@@ -1,0 +1,5311 @@
+{
+  "machine": {
+    "alphabetSize": 2,
+    "blankSymbol": 0,
+    "states": [
+      "b1R",
+      "b1L",
+      "b2R",
+      "b2L",
+      "b3R",
+      "b3L",
+      "b4R",
+      "b4L",
+      "b5R",
+      "b5L",
+      "b6R",
+      "b6L",
+      "b7R",
+      "b7L",
+      "halt"
+    ],
+    "startState": "b1R",
+    "haltStates": [
+      "halt"
+    ],
+    "transitions": [
+      {
+        "state": "b1R",
+        "read": 1,
+        "write": 1,
+        "move": "R",
+        "nextState": "b1R"
+      },
+      {
+        "state": "b1R",
+        "read": 0,
+        "write": 1,
+        "move": "L",
+        "nextState": "b1L"
+      },
+      {
+        "state": "b1L",
+        "read": 1,
+        "write": 1,
+        "move": "L",
+        "nextState": "b1L"
+      },
+      {
+        "state": "b1L",
+        "read": 0,
+        "write": 1,
+        "move": "R",
+        "nextState": "b2R"
+      },
+      {
+        "state": "b2R",
+        "read": 1,
+        "write": 1,
+        "move": "R",
+        "nextState": "b2R"
+      },
+      {
+        "state": "b2R",
+        "read": 0,
+        "write": 1,
+        "move": "L",
+        "nextState": "b2L"
+      },
+      {
+        "state": "b2L",
+        "read": 1,
+        "write": 1,
+        "move": "L",
+        "nextState": "b2L"
+      },
+      {
+        "state": "b2L",
+        "read": 0,
+        "write": 1,
+        "move": "R",
+        "nextState": "b3R"
+      },
+      {
+        "state": "b3R",
+        "read": 1,
+        "write": 1,
+        "move": "R",
+        "nextState": "b3R"
+      },
+      {
+        "state": "b3R",
+        "read": 0,
+        "write": 1,
+        "move": "L",
+        "nextState": "b3L"
+      },
+      {
+        "state": "b3L",
+        "read": 1,
+        "write": 1,
+        "move": "L",
+        "nextState": "b3L"
+      },
+      {
+        "state": "b3L",
+        "read": 0,
+        "write": 1,
+        "move": "R",
+        "nextState": "b4R"
+      },
+      {
+        "state": "b4R",
+        "read": 1,
+        "write": 1,
+        "move": "R",
+        "nextState": "b4R"
+      },
+      {
+        "state": "b4R",
+        "read": 0,
+        "write": 1,
+        "move": "L",
+        "nextState": "b4L"
+      },
+      {
+        "state": "b4L",
+        "read": 1,
+        "write": 1,
+        "move": "L",
+        "nextState": "b4L"
+      },
+      {
+        "state": "b4L",
+        "read": 0,
+        "write": 1,
+        "move": "R",
+        "nextState": "b5R"
+      },
+      {
+        "state": "b5R",
+        "read": 1,
+        "write": 1,
+        "move": "R",
+        "nextState": "b5R"
+      },
+      {
+        "state": "b5R",
+        "read": 0,
+        "write": 1,
+        "move": "L",
+        "nextState": "b5L"
+      },
+      {
+        "state": "b5L",
+        "read": 1,
+        "write": 1,
+        "move": "L",
+        "nextState": "b5L"
+      },
+      {
+        "state": "b5L",
+        "read": 0,
+        "write": 1,
+        "move": "R",
+        "nextState": "b6R"
+      },
+      {
+        "state": "b6R",
+        "read": 1,
+        "write": 1,
+        "move": "R",
+        "nextState": "b6R"
+      },
+      {
+        "state": "b6R",
+        "read": 0,
+        "write": 1,
+        "move": "L",
+        "nextState": "b6L"
+      },
+      {
+        "state": "b6L",
+        "read": 1,
+        "write": 1,
+        "move": "L",
+        "nextState": "b6L"
+      },
+      {
+        "state": "b6L",
+        "read": 0,
+        "write": 1,
+        "move": "R",
+        "nextState": "b7R"
+      },
+      {
+        "state": "b7R",
+        "read": 1,
+        "write": 1,
+        "move": "R",
+        "nextState": "b7R"
+      },
+      {
+        "state": "b7R",
+        "read": 0,
+        "write": 1,
+        "move": "L",
+        "nextState": "b7L"
+      },
+      {
+        "state": "b7L",
+        "read": 1,
+        "write": 1,
+        "move": "L",
+        "nextState": "b7L"
+      },
+      {
+        "state": "b7L",
+        "read": 0,
+        "write": 1,
+        "move": "R",
+        "nextState": "halt"
+      }
+    ]
+  },
+  "result": {
+    "status": "HALT",
+    "steps": 92,
+    "finalLeft": [
+      1
+    ],
+    "finalRight": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "finalState": "halt"
+  },
+  "emet": {
+    "aleph": true,
+    "mem": false,
+    "tav": true,
+    "isEmet": false,
+    "notes": [
+      "Mem failed: selector denominator non-units in \u2124/N\u2124"
+    ]
+  },
+  "shear": {
+    "phiR": [
+      [
+        -211263,
+        347485
+      ],
+      [
+        -87508,
+        143933
+      ]
+    ],
+    "phiL": [
+      [
+        -3,
+        5
+      ],
+      [
+        -8,
+        13
+      ]
+    ]
+  },
+  "trace": [
+    {
+      "step": 0,
+      "preState": "b1R",
+      "postState": "b1L",
+      "readSymbol": 0,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [],
+      "preRight": [],
+      "postLeft": [],
+      "postRight": [
+        0,
+        1
+      ],
+      "cf": {
+        "preLeft": "1/1",
+        "preRight": "1/1",
+        "postLeft": "1/1",
+        "postRight": "4/3"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 1,
+      "preState": "b1L",
+      "postState": "b2R",
+      "readSymbol": 0,
+      "writeSymbol": 1,
+      "move": "R",
+      "shearFactor": {
+        "kind": "pop",
+        "k": 1
+      },
+      "matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -1
+        ]
+      ],
+      "preLeft": [],
+      "preRight": [
+        0,
+        1
+      ],
+      "postLeft": [
+        1
+      ],
+      "postRight": [
+        1
+      ],
+      "cf": {
+        "preLeft": "1/1",
+        "preRight": "4/3",
+        "postLeft": "3/1",
+        "postRight": "3/1"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 2,
+      "preState": "b2R",
+      "postState": "b2R",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "R",
+      "shearFactor": {
+        "kind": "pop",
+        "k": 2
+      },
+      "matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -2
+        ]
+      ],
+      "preLeft": [
+        1
+      ],
+      "preRight": [
+        1
+      ],
+      "postLeft": [
+        1,
+        1
+      ],
+      "postRight": [],
+      "cf": {
+        "preLeft": "3/1",
+        "preRight": "3/1",
+        "postLeft": "7/3",
+        "postRight": "1/1"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 3,
+      "preState": "b2R",
+      "postState": "b2L",
+      "readSymbol": 0,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [
+        1,
+        1
+      ],
+      "preRight": [],
+      "postLeft": [
+        1
+      ],
+      "postRight": [
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "7/3",
+        "preRight": "1/1",
+        "postLeft": "3/1",
+        "postRight": "7/3"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 4,
+      "preState": "b2L",
+      "postState": "b2L",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [
+        1
+      ],
+      "preRight": [
+        1,
+        1
+      ],
+      "postLeft": [],
+      "postRight": [
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "3/1",
+        "preRight": "7/3",
+        "postLeft": "1/1",
+        "postRight": "17/7"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 5,
+      "preState": "b2L",
+      "postState": "b2L",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [],
+      "preRight": [
+        1,
+        1,
+        1
+      ],
+      "postLeft": [],
+      "postRight": [
+        0,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "1/1",
+        "preRight": "17/7",
+        "postLeft": "1/1",
+        "postRight": "24/17"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 6,
+      "preState": "b2L",
+      "postState": "b3R",
+      "readSymbol": 0,
+      "writeSymbol": 1,
+      "move": "R",
+      "shearFactor": {
+        "kind": "pop",
+        "k": 1
+      },
+      "matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -1
+        ]
+      ],
+      "preLeft": [],
+      "preRight": [
+        0,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "1/1",
+        "preRight": "24/17",
+        "postLeft": "3/1",
+        "postRight": "17/7"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 7,
+      "preState": "b3R",
+      "postState": "b3R",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "R",
+      "shearFactor": {
+        "kind": "pop",
+        "k": 2
+      },
+      "matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -2
+        ]
+      ],
+      "preLeft": [
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "3/1",
+        "preRight": "17/7",
+        "postLeft": "7/3",
+        "postRight": "7/3"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 8,
+      "preState": "b3R",
+      "postState": "b3R",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "R",
+      "shearFactor": {
+        "kind": "pop",
+        "k": 2
+      },
+      "matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -2
+        ]
+      ],
+      "preLeft": [
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1
+      ],
+      "cf": {
+        "preLeft": "7/3",
+        "preRight": "7/3",
+        "postLeft": "17/7",
+        "postRight": "3/1"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 9,
+      "preState": "b3R",
+      "postState": "b3R",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "R",
+      "shearFactor": {
+        "kind": "pop",
+        "k": 2
+      },
+      "matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -2
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "postRight": [],
+      "cf": {
+        "preLeft": "17/7",
+        "preRight": "3/1",
+        "postLeft": "41/17",
+        "postRight": "1/1"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 10,
+      "preState": "b3R",
+      "postState": "b3L",
+      "readSymbol": 0,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "preRight": [],
+      "postLeft": [
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "41/17",
+        "preRight": "1/1",
+        "postLeft": "17/7",
+        "postRight": "7/3"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 11,
+      "preState": "b3L",
+      "postState": "b3L",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "17/7",
+        "preRight": "7/3",
+        "postLeft": "7/3",
+        "postRight": "17/7"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 12,
+      "preState": "b3L",
+      "postState": "b3L",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "7/3",
+        "preRight": "17/7",
+        "postLeft": "3/1",
+        "postRight": "41/17"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 13,
+      "preState": "b3L",
+      "postState": "b3L",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [],
+      "postRight": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "3/1",
+        "preRight": "41/17",
+        "postLeft": "1/1",
+        "postRight": "99/41"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 14,
+      "preState": "b3L",
+      "postState": "b3L",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [],
+      "preRight": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [],
+      "postRight": [
+        0,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "1/1",
+        "preRight": "99/41",
+        "postLeft": "1/1",
+        "postRight": "140/99"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 15,
+      "preState": "b3L",
+      "postState": "b4R",
+      "readSymbol": 0,
+      "writeSymbol": 1,
+      "move": "R",
+      "shearFactor": {
+        "kind": "pop",
+        "k": 1
+      },
+      "matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -1
+        ]
+      ],
+      "preLeft": [],
+      "preRight": [
+        0,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "1/1",
+        "preRight": "140/99",
+        "postLeft": "3/1",
+        "postRight": "99/41"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 16,
+      "preState": "b4R",
+      "postState": "b4R",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "R",
+      "shearFactor": {
+        "kind": "pop",
+        "k": 2
+      },
+      "matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -2
+        ]
+      ],
+      "preLeft": [
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "3/1",
+        "preRight": "99/41",
+        "postLeft": "7/3",
+        "postRight": "41/17"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 17,
+      "preState": "b4R",
+      "postState": "b4R",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "R",
+      "shearFactor": {
+        "kind": "pop",
+        "k": 2
+      },
+      "matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -2
+        ]
+      ],
+      "preLeft": [
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "7/3",
+        "preRight": "41/17",
+        "postLeft": "17/7",
+        "postRight": "17/7"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 18,
+      "preState": "b4R",
+      "postState": "b4R",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "R",
+      "shearFactor": {
+        "kind": "pop",
+        "k": 2
+      },
+      "matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -2
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "17/7",
+        "preRight": "17/7",
+        "postLeft": "41/17",
+        "postRight": "7/3"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 19,
+      "preState": "b4R",
+      "postState": "b4R",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "R",
+      "shearFactor": {
+        "kind": "pop",
+        "k": 2
+      },
+      "matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -2
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1
+      ],
+      "cf": {
+        "preLeft": "41/17",
+        "preRight": "7/3",
+        "postLeft": "99/41",
+        "postRight": "3/1"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 20,
+      "preState": "b4R",
+      "postState": "b4R",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "R",
+      "shearFactor": {
+        "kind": "pop",
+        "k": 2
+      },
+      "matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -2
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postRight": [],
+      "cf": {
+        "preLeft": "99/41",
+        "preRight": "3/1",
+        "postLeft": "239/99",
+        "postRight": "1/1"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 21,
+      "preState": "b4R",
+      "postState": "b4L",
+      "readSymbol": 0,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "preRight": [],
+      "postLeft": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "239/99",
+        "preRight": "1/1",
+        "postLeft": "99/41",
+        "postRight": "7/3"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 22,
+      "preState": "b4L",
+      "postState": "b4L",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "99/41",
+        "preRight": "7/3",
+        "postLeft": "41/17",
+        "postRight": "17/7"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 23,
+      "preState": "b4L",
+      "postState": "b4L",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "41/17",
+        "preRight": "17/7",
+        "postLeft": "17/7",
+        "postRight": "41/17"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 24,
+      "preState": "b4L",
+      "postState": "b4L",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "17/7",
+        "preRight": "41/17",
+        "postLeft": "7/3",
+        "postRight": "99/41"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 25,
+      "preState": "b4L",
+      "postState": "b4L",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "7/3",
+        "preRight": "99/41",
+        "postLeft": "3/1",
+        "postRight": "239/99"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 26,
+      "preState": "b4L",
+      "postState": "b4L",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [],
+      "postRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "3/1",
+        "preRight": "239/99",
+        "postLeft": "1/1",
+        "postRight": "577/239"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 27,
+      "preState": "b4L",
+      "postState": "b4L",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [],
+      "preRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [],
+      "postRight": [
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "1/1",
+        "preRight": "577/239",
+        "postLeft": "1/1",
+        "postRight": "816/577"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 28,
+      "preState": "b4L",
+      "postState": "b5R",
+      "readSymbol": 0,
+      "writeSymbol": 1,
+      "move": "R",
+      "shearFactor": {
+        "kind": "pop",
+        "k": 1
+      },
+      "matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -1
+        ]
+      ],
+      "preLeft": [],
+      "preRight": [
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "1/1",
+        "preRight": "816/577",
+        "postLeft": "3/1",
+        "postRight": "577/239"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 29,
+      "preState": "b5R",
+      "postState": "b5R",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "R",
+      "shearFactor": {
+        "kind": "pop",
+        "k": 2
+      },
+      "matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -2
+        ]
+      ],
+      "preLeft": [
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "3/1",
+        "preRight": "577/239",
+        "postLeft": "7/3",
+        "postRight": "239/99"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 30,
+      "preState": "b5R",
+      "postState": "b5R",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "R",
+      "shearFactor": {
+        "kind": "pop",
+        "k": 2
+      },
+      "matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -2
+        ]
+      ],
+      "preLeft": [
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "7/3",
+        "preRight": "239/99",
+        "postLeft": "17/7",
+        "postRight": "99/41"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 31,
+      "preState": "b5R",
+      "postState": "b5R",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "R",
+      "shearFactor": {
+        "kind": "pop",
+        "k": 2
+      },
+      "matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -2
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "17/7",
+        "preRight": "99/41",
+        "postLeft": "41/17",
+        "postRight": "41/17"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 32,
+      "preState": "b5R",
+      "postState": "b5R",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "R",
+      "shearFactor": {
+        "kind": "pop",
+        "k": 2
+      },
+      "matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -2
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "41/17",
+        "preRight": "41/17",
+        "postLeft": "99/41",
+        "postRight": "17/7"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 33,
+      "preState": "b5R",
+      "postState": "b5R",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "R",
+      "shearFactor": {
+        "kind": "pop",
+        "k": 2
+      },
+      "matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -2
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "99/41",
+        "preRight": "17/7",
+        "postLeft": "239/99",
+        "postRight": "7/3"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 34,
+      "preState": "b5R",
+      "postState": "b5R",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "R",
+      "shearFactor": {
+        "kind": "pop",
+        "k": 2
+      },
+      "matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -2
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1
+      ],
+      "cf": {
+        "preLeft": "239/99",
+        "preRight": "7/3",
+        "postLeft": "577/239",
+        "postRight": "3/1"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 35,
+      "preState": "b5R",
+      "postState": "b5R",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "R",
+      "shearFactor": {
+        "kind": "pop",
+        "k": 2
+      },
+      "matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -2
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postRight": [],
+      "cf": {
+        "preLeft": "577/239",
+        "preRight": "3/1",
+        "postLeft": "1393/577",
+        "postRight": "1/1"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 36,
+      "preState": "b5R",
+      "postState": "b5L",
+      "readSymbol": 0,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "preRight": [],
+      "postLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "1393/577",
+        "preRight": "1/1",
+        "postLeft": "577/239",
+        "postRight": "7/3"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 37,
+      "preState": "b5L",
+      "postState": "b5L",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "577/239",
+        "preRight": "7/3",
+        "postLeft": "239/99",
+        "postRight": "17/7"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 38,
+      "preState": "b5L",
+      "postState": "b5L",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "239/99",
+        "preRight": "17/7",
+        "postLeft": "99/41",
+        "postRight": "41/17"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 39,
+      "preState": "b5L",
+      "postState": "b5L",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "99/41",
+        "preRight": "41/17",
+        "postLeft": "41/17",
+        "postRight": "99/41"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 40,
+      "preState": "b5L",
+      "postState": "b5L",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "41/17",
+        "preRight": "99/41",
+        "postLeft": "17/7",
+        "postRight": "239/99"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 41,
+      "preState": "b5L",
+      "postState": "b5L",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "17/7",
+        "preRight": "239/99",
+        "postLeft": "7/3",
+        "postRight": "577/239"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 42,
+      "preState": "b5L",
+      "postState": "b5L",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "7/3",
+        "preRight": "577/239",
+        "postLeft": "3/1",
+        "postRight": "1393/577"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 43,
+      "preState": "b5L",
+      "postState": "b5L",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [],
+      "postRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "3/1",
+        "preRight": "1393/577",
+        "postLeft": "1/1",
+        "postRight": "3363/1393"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 44,
+      "preState": "b5L",
+      "postState": "b5L",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [],
+      "preRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [],
+      "postRight": [
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "1/1",
+        "preRight": "3363/1393",
+        "postLeft": "1/1",
+        "postRight": "4756/3363"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 45,
+      "preState": "b5L",
+      "postState": "b6R",
+      "readSymbol": 0,
+      "writeSymbol": 1,
+      "move": "R",
+      "shearFactor": {
+        "kind": "pop",
+        "k": 1
+      },
+      "matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -1
+        ]
+      ],
+      "preLeft": [],
+      "preRight": [
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "1/1",
+        "preRight": "4756/3363",
+        "postLeft": "3/1",
+        "postRight": "3363/1393"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 46,
+      "preState": "b6R",
+      "postState": "b6R",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "R",
+      "shearFactor": {
+        "kind": "pop",
+        "k": 2
+      },
+      "matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -2
+        ]
+      ],
+      "preLeft": [
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "3/1",
+        "preRight": "3363/1393",
+        "postLeft": "7/3",
+        "postRight": "1393/577"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 47,
+      "preState": "b6R",
+      "postState": "b6R",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "R",
+      "shearFactor": {
+        "kind": "pop",
+        "k": 2
+      },
+      "matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -2
+        ]
+      ],
+      "preLeft": [
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "7/3",
+        "preRight": "1393/577",
+        "postLeft": "17/7",
+        "postRight": "577/239"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 48,
+      "preState": "b6R",
+      "postState": "b6R",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "R",
+      "shearFactor": {
+        "kind": "pop",
+        "k": 2
+      },
+      "matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -2
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "17/7",
+        "preRight": "577/239",
+        "postLeft": "41/17",
+        "postRight": "239/99"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 49,
+      "preState": "b6R",
+      "postState": "b6R",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "R",
+      "shearFactor": {
+        "kind": "pop",
+        "k": 2
+      },
+      "matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -2
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "41/17",
+        "preRight": "239/99",
+        "postLeft": "99/41",
+        "postRight": "99/41"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 50,
+      "preState": "b6R",
+      "postState": "b6R",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "R",
+      "shearFactor": {
+        "kind": "pop",
+        "k": 2
+      },
+      "matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -2
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "99/41",
+        "preRight": "99/41",
+        "postLeft": "239/99",
+        "postRight": "41/17"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 51,
+      "preState": "b6R",
+      "postState": "b6R",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "R",
+      "shearFactor": {
+        "kind": "pop",
+        "k": 2
+      },
+      "matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -2
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "239/99",
+        "preRight": "41/17",
+        "postLeft": "577/239",
+        "postRight": "17/7"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 52,
+      "preState": "b6R",
+      "postState": "b6R",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "R",
+      "shearFactor": {
+        "kind": "pop",
+        "k": 2
+      },
+      "matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -2
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "577/239",
+        "preRight": "17/7",
+        "postLeft": "1393/577",
+        "postRight": "7/3"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 53,
+      "preState": "b6R",
+      "postState": "b6R",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "R",
+      "shearFactor": {
+        "kind": "pop",
+        "k": 2
+      },
+      "matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -2
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1
+      ],
+      "cf": {
+        "preLeft": "1393/577",
+        "preRight": "7/3",
+        "postLeft": "3363/1393",
+        "postRight": "3/1"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 54,
+      "preState": "b6R",
+      "postState": "b6R",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "R",
+      "shearFactor": {
+        "kind": "pop",
+        "k": 2
+      },
+      "matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -2
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postRight": [],
+      "cf": {
+        "preLeft": "3363/1393",
+        "preRight": "3/1",
+        "postLeft": "8119/3363",
+        "postRight": "1/1"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 55,
+      "preState": "b6R",
+      "postState": "b6L",
+      "readSymbol": 0,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "preRight": [],
+      "postLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "8119/3363",
+        "preRight": "1/1",
+        "postLeft": "3363/1393",
+        "postRight": "7/3"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 56,
+      "preState": "b6L",
+      "postState": "b6L",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "3363/1393",
+        "preRight": "7/3",
+        "postLeft": "1393/577",
+        "postRight": "17/7"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 57,
+      "preState": "b6L",
+      "postState": "b6L",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "1393/577",
+        "preRight": "17/7",
+        "postLeft": "577/239",
+        "postRight": "41/17"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 58,
+      "preState": "b6L",
+      "postState": "b6L",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "577/239",
+        "preRight": "41/17",
+        "postLeft": "239/99",
+        "postRight": "99/41"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 59,
+      "preState": "b6L",
+      "postState": "b6L",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "239/99",
+        "preRight": "99/41",
+        "postLeft": "99/41",
+        "postRight": "239/99"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 60,
+      "preState": "b6L",
+      "postState": "b6L",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "99/41",
+        "preRight": "239/99",
+        "postLeft": "41/17",
+        "postRight": "577/239"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 61,
+      "preState": "b6L",
+      "postState": "b6L",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "41/17",
+        "preRight": "577/239",
+        "postLeft": "17/7",
+        "postRight": "1393/577"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 62,
+      "preState": "b6L",
+      "postState": "b6L",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "17/7",
+        "preRight": "1393/577",
+        "postLeft": "7/3",
+        "postRight": "3363/1393"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 63,
+      "preState": "b6L",
+      "postState": "b6L",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "7/3",
+        "preRight": "3363/1393",
+        "postLeft": "3/1",
+        "postRight": "8119/3363"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 64,
+      "preState": "b6L",
+      "postState": "b6L",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [],
+      "postRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "3/1",
+        "preRight": "8119/3363",
+        "postLeft": "1/1",
+        "postRight": "19601/8119"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 65,
+      "preState": "b6L",
+      "postState": "b6L",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [],
+      "preRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [],
+      "postRight": [
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "1/1",
+        "preRight": "19601/8119",
+        "postLeft": "1/1",
+        "postRight": "27720/19601"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 66,
+      "preState": "b6L",
+      "postState": "b7R",
+      "readSymbol": 0,
+      "writeSymbol": 1,
+      "move": "R",
+      "shearFactor": {
+        "kind": "pop",
+        "k": 1
+      },
+      "matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -1
+        ]
+      ],
+      "preLeft": [],
+      "preRight": [
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "1/1",
+        "preRight": "27720/19601",
+        "postLeft": "3/1",
+        "postRight": "19601/8119"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 67,
+      "preState": "b7R",
+      "postState": "b7R",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "R",
+      "shearFactor": {
+        "kind": "pop",
+        "k": 2
+      },
+      "matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -2
+        ]
+      ],
+      "preLeft": [
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "3/1",
+        "preRight": "19601/8119",
+        "postLeft": "7/3",
+        "postRight": "8119/3363"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 68,
+      "preState": "b7R",
+      "postState": "b7R",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "R",
+      "shearFactor": {
+        "kind": "pop",
+        "k": 2
+      },
+      "matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -2
+        ]
+      ],
+      "preLeft": [
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "7/3",
+        "preRight": "8119/3363",
+        "postLeft": "17/7",
+        "postRight": "3363/1393"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 69,
+      "preState": "b7R",
+      "postState": "b7R",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "R",
+      "shearFactor": {
+        "kind": "pop",
+        "k": 2
+      },
+      "matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -2
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "17/7",
+        "preRight": "3363/1393",
+        "postLeft": "41/17",
+        "postRight": "1393/577"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 70,
+      "preState": "b7R",
+      "postState": "b7R",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "R",
+      "shearFactor": {
+        "kind": "pop",
+        "k": 2
+      },
+      "matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -2
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "41/17",
+        "preRight": "1393/577",
+        "postLeft": "99/41",
+        "postRight": "577/239"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 71,
+      "preState": "b7R",
+      "postState": "b7R",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "R",
+      "shearFactor": {
+        "kind": "pop",
+        "k": 2
+      },
+      "matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -2
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "99/41",
+        "preRight": "577/239",
+        "postLeft": "239/99",
+        "postRight": "239/99"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 72,
+      "preState": "b7R",
+      "postState": "b7R",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "R",
+      "shearFactor": {
+        "kind": "pop",
+        "k": 2
+      },
+      "matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -2
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "239/99",
+        "preRight": "239/99",
+        "postLeft": "577/239",
+        "postRight": "99/41"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 73,
+      "preState": "b7R",
+      "postState": "b7R",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "R",
+      "shearFactor": {
+        "kind": "pop",
+        "k": 2
+      },
+      "matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -2
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "577/239",
+        "preRight": "99/41",
+        "postLeft": "1393/577",
+        "postRight": "41/17"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 74,
+      "preState": "b7R",
+      "postState": "b7R",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "R",
+      "shearFactor": {
+        "kind": "pop",
+        "k": 2
+      },
+      "matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -2
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "1393/577",
+        "preRight": "41/17",
+        "postLeft": "3363/1393",
+        "postRight": "17/7"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 75,
+      "preState": "b7R",
+      "postState": "b7R",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "R",
+      "shearFactor": {
+        "kind": "pop",
+        "k": 2
+      },
+      "matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -2
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "3363/1393",
+        "preRight": "17/7",
+        "postLeft": "8119/3363",
+        "postRight": "7/3"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 76,
+      "preState": "b7R",
+      "postState": "b7R",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "R",
+      "shearFactor": {
+        "kind": "pop",
+        "k": 2
+      },
+      "matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -2
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1
+      ],
+      "cf": {
+        "preLeft": "8119/3363",
+        "preRight": "7/3",
+        "postLeft": "19601/8119",
+        "postRight": "3/1"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 77,
+      "preState": "b7R",
+      "postState": "b7R",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "R",
+      "shearFactor": {
+        "kind": "pop",
+        "k": 2
+      },
+      "matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -2
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postRight": [],
+      "cf": {
+        "preLeft": "19601/8119",
+        "preRight": "3/1",
+        "postLeft": "47321/19601",
+        "postRight": "1/1"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 78,
+      "preState": "b7R",
+      "postState": "b7L",
+      "readSymbol": 0,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "preRight": [],
+      "postLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "47321/19601",
+        "preRight": "1/1",
+        "postLeft": "19601/8119",
+        "postRight": "7/3"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 79,
+      "preState": "b7L",
+      "postState": "b7L",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "19601/8119",
+        "preRight": "7/3",
+        "postLeft": "8119/3363",
+        "postRight": "17/7"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 80,
+      "preState": "b7L",
+      "postState": "b7L",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "8119/3363",
+        "preRight": "17/7",
+        "postLeft": "3363/1393",
+        "postRight": "41/17"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 81,
+      "preState": "b7L",
+      "postState": "b7L",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "3363/1393",
+        "preRight": "41/17",
+        "postLeft": "1393/577",
+        "postRight": "99/41"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 82,
+      "preState": "b7L",
+      "postState": "b7L",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "1393/577",
+        "preRight": "99/41",
+        "postLeft": "577/239",
+        "postRight": "239/99"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 83,
+      "preState": "b7L",
+      "postState": "b7L",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "577/239",
+        "preRight": "239/99",
+        "postLeft": "239/99",
+        "postRight": "577/239"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 84,
+      "preState": "b7L",
+      "postState": "b7L",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "239/99",
+        "preRight": "577/239",
+        "postLeft": "99/41",
+        "postRight": "1393/577"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 85,
+      "preState": "b7L",
+      "postState": "b7L",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "99/41",
+        "preRight": "1393/577",
+        "postLeft": "41/17",
+        "postRight": "3363/1393"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 86,
+      "preState": "b7L",
+      "postState": "b7L",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "41/17",
+        "preRight": "3363/1393",
+        "postLeft": "17/7",
+        "postRight": "8119/3363"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 87,
+      "preState": "b7L",
+      "postState": "b7L",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [
+        1,
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1,
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "17/7",
+        "preRight": "8119/3363",
+        "postLeft": "7/3",
+        "postRight": "19601/8119"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 88,
+      "preState": "b7L",
+      "postState": "b7L",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [
+        1,
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "7/3",
+        "preRight": "19601/8119",
+        "postLeft": "3/1",
+        "postRight": "47321/19601"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 89,
+      "preState": "b7L",
+      "postState": "b7L",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [
+        1
+      ],
+      "preRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [],
+      "postRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "3/1",
+        "preRight": "47321/19601",
+        "postLeft": "1/1",
+        "postRight": "114243/47321"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 90,
+      "preState": "b7L",
+      "postState": "b7L",
+      "readSymbol": 1,
+      "writeSymbol": 1,
+      "move": "L",
+      "shearFactor": {
+        "kind": "push",
+        "k": 2
+      },
+      "matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "preLeft": [],
+      "preRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [],
+      "postRight": [
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "1/1",
+        "preRight": "114243/47321",
+        "postLeft": "1/1",
+        "postRight": "161564/114243"
+      },
+      "selectorMode": "direct"
+    },
+    {
+      "step": 91,
+      "preState": "b7L",
+      "postState": "halt",
+      "readSymbol": 0,
+      "writeSymbol": 1,
+      "move": "R",
+      "shearFactor": {
+        "kind": "pop",
+        "k": 1
+      },
+      "matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          -1
+        ]
+      ],
+      "preLeft": [],
+      "preRight": [
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "postLeft": [
+        1
+      ],
+      "postRight": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "cf": {
+        "preLeft": "1/1",
+        "preRight": "161564/114243",
+        "postLeft": "3/1",
+        "postRight": "114243/47321"
+      },
+      "selectorMode": "direct"
+    }
+  ]
+}
