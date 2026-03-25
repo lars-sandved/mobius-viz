@@ -62,7 +62,7 @@ export const descriptions: Record<string, MachineDescription> = {
 			const parseBin = (syms: number[]) => {
 				const bits = syms.filter(c => c === 1 || c === 2).map(c => c - 1);
 				if (bits.length === 0) return 0;
-				return parseInt(bits.join(''), 2);
+				return parseInt([...bits].reverse().join(''), 2);
 			};
 			if (sepIdx !== -1) {
 				const a = parseBin(tape.slice(0, sepIdx));
