@@ -73,4 +73,18 @@ export const descriptions: Record<string, MachineDescription> = {
 			return `= ${result}`;
 		},
 	},
+	'Rogozhin (2,3) — Universal TM': {
+		title: 'Rogozhin\'s Universal Turing Machine',
+		summary: 'The smallest known universal Turing machine: just 2 states and 3 symbols. Despite its simplicity, it can compute anything any computer can compute — given the right input encoding. Here it runs on a simple input that produces an ever-growing block of 1s (counting upward in unary).',
+		tapeFormat: 'Symbols: 0 = blank, 1 = mark, 2 = control marker. The initial tape [2,2,2,2,2] is the encoded "program" — five control markers that the machine processes.',
+		watchFor: 'The machine enters a cycle: sweep right (erasing 2→0), bounce off the blank edge, then write a new 1. Each cycle adds one mark. Its cycle matrix has eigenvalues ±φ (the golden ratio) — the fundamental growth rate of computation.',
+		interpretTape(left, right, blankSymbol) {
+			const tape = fullTape(left, right);
+			const ones = tape.filter(c => c === 1).length;
+			const twos = tape.filter(c => c === 2).length;
+			if (twos > 0 && ones === 0) return `input: ${twos} control markers`;
+			if (twos > 0) return `${ones} mark${ones !== 1 ? 's' : ''} written, ${twos} marker${twos !== 1 ? 's' : ''} remaining`;
+			return `counting: ${ones} mark${ones !== 1 ? 's' : ''}`;
+		},
+	},
 };
