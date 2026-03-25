@@ -55,8 +55,22 @@ export const descriptions: Record<string, MachineDescription> = {
 		tapeFormat: 'Binary encoding with separator symbols. Multiple tape symbols represent digits and carry states.',
 		watchFor: 'This machine takes 40 steps — notice how the Shear expansion (Φ) accumulates a much longer matrix chain than the simpler machines.',
 		interpretTape(left, right, blankSymbol) {
-			const count = fullTape(left, right).filter(c => c !== blankSymbol).length;
-			return `${count} symbols on tape`;
+			const tape = fullTape(left, right).filter(c => c !== blankSymbol);
+			if (tape.length === 0) return '';
+			// Encoding: 1=bit0, 2=bit1, 3=separator
+			const sepIdx = tape.indexOf(3);
+			const parseBin = (syms: number[]) => {
+				const bits = syms.filter(c => c === 1 || c === 2).map(c => c - 1);
+				if (bits.length === 0) return 0;
+				return parseInt(bits.join(''), 2);
+			};
+			if (sepIdx !== -1) {
+				const a = parseBin(tape.slice(0, sepIdx));
+				const b = parseBin(tape.slice(sepIdx + 1));
+				return `${a} + ${b}`;
+			}
+			const result = parseBin(tape);
+			return `= ${result}`;
 		},
 	},
 };
