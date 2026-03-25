@@ -116,6 +116,7 @@
 	let currentState = $derived(step ? step.preState : trace.result.finalState);
 	let cfLeft = $derived(step ? step.cf.preLeft : null);
 	let cfRight = $derived(step ? step.cf.preRight : null);
+	let interpretation = $derived(desc?.interpretTape ? desc.interpretTape(preLeft, preRight, blank) : '');
 
 	let transitionText = $derived.by(() => {
 		if (!step) return trace.result.status === 'HALT' ? '⏹ HALTED' : trace.result.status;
@@ -221,6 +222,9 @@
 			{/each}
 		</div>
 		<div class="text-center mt-0.5"><span class="text-indigo-400 text-[10px]">▲ head</span></div>
+		{#if interpretation}
+			<div class="text-center mt-1 text-sm text-emerald-400 font-mono">{interpretation}</div>
+		{/if}
 
 		<!-- Transition -->
 		<div class="text-center mt-2 font-mono text-sm text-gray-300">{transitionText}</div>
